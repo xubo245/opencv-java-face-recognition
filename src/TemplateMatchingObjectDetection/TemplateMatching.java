@@ -1,4 +1,5 @@
-package com.mesutpiskin.templatematcing;
+package TemplateMatchingObjectDetection;
+
 import org.opencv.core.Core;
 import org.opencv.core.Core.MinMaxLocResult;
 import org.opencv.core.Mat;
