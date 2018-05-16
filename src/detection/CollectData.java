@@ -3,7 +3,6 @@ package detection;
 import java.awt.*;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.*;
 
@@ -25,7 +24,7 @@ public class CollectData {
 
   private static int sample = 0;
 
-  public static String path = "/home/david/Documents/code/OpenCvObjectDetection/imagedb";
+  public static String path = "./imagedb";
 
   public static String id = "qiang";
 
@@ -36,7 +35,7 @@ public class CollectData {
     System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
     CascadeClassifier faceCascade = new CascadeClassifier();
-    faceCascade.load("/usr/share/OpenCV/haarcascades/haarcascade_frontalface_alt.xml");
+    faceCascade.load(Properties.location+"haarcascade_frontalface_alt.xml");
 
     Scanner scanner = new Scanner(System.in);
     System.out.println("input id: ");
@@ -45,7 +44,8 @@ public class CollectData {
 
     JFrame cameraFrame = new JFrame("camera");
     cameraFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    cameraFrame.setSize(640, 480);
+    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+    cameraFrame.setSize(d.width, d.height);
     cameraFrame.setBounds(0, 0, cameraFrame.getWidth(), cameraFrame.getHeight());
     VideoPanel videoPanel = new VideoPanel();
     cameraFrame.setContentPane(videoPanel);

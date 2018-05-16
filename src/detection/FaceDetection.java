@@ -13,6 +13,8 @@ import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.objdetect.Objdetect;
 import org.opencv.videoio.VideoCapture;
 
+import java.awt.*;
+
 public class FaceDetection {
 
   public static void main(String[] args) {
@@ -21,14 +23,15 @@ public class FaceDetection {
 
     JFrame cameraFrame = new JFrame("camera");
     cameraFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    cameraFrame.setSize(640, 480);
+    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+    cameraFrame.setSize(d.width, d.height);
     cameraFrame.setBounds(0, 0, cameraFrame.getWidth(), cameraFrame.getHeight());
     VideoPanel videoPanel = new VideoPanel();
     cameraFrame.setContentPane(videoPanel);
     cameraFrame.setVisible(true);
 
     CascadeClassifier faceCascade = new CascadeClassifier();
-    faceCascade.load("/usr/share/OpenCV/haarcascades/haarcascade_frontalface_alt.xml");
+    faceCascade.load(Properties.location+"haarcascade_frontalface_alt.xml");
     VideoCapture capture = new VideoCapture();
     try {
       capture.open(0);

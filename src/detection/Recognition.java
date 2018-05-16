@@ -1,5 +1,6 @@
 package detection;
 
+import java.awt.*;
 import java.text.DecimalFormat;
 import javax.swing.*;
 
@@ -25,16 +26,18 @@ public class Recognition {
 
     JFrame cameraFrame = new JFrame("camera");
     cameraFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    cameraFrame.setSize(640, 480);
+    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+    cameraFrame.setSize(d.width, d.height);
     cameraFrame.setBounds(0, 0, cameraFrame.getWidth(), cameraFrame.getHeight());
     VideoPanel videoPanel = new VideoPanel();
+
     cameraFrame.setContentPane(videoPanel);
     cameraFrame.setVisible(true);
 
     CascadeClassifier faceCascade = new CascadeClassifier();
-    faceCascade.load("/usr/share/OpenCV/haarcascades/haarcascade_frontalface_alt.xml");
+    faceCascade.load(Properties.location+"haarcascade_frontalface_alt.xml");
     FaceRecognizer faceRecognizer = LBPHFaceRecognizer.create();
-    faceRecognizer.read("/home/david/Documents/code/OpenCvObjectDetection/model/face_model.yml");
+    faceRecognizer.read(Properties.modelLocation);
     VideoCapture capture = new VideoCapture();
 
     try {

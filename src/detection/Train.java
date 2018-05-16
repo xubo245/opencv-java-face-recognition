@@ -25,8 +25,8 @@ public class Train {
 
   public static void main(String[] args) throws IOException {
 
-    getImagesAndLabels("/home/david/Documents/code/OpenCvObjectDetection/imagedb",
-        "/home/david/Documents/code/OpenCvObjectDetection/model");
+    getImagesAndLabels("./imagedb",
+        "/Users/xubo/Desktop/xubo/git/OpenCvObjectDetection/model");
 
   }
 
@@ -35,7 +35,7 @@ public class Train {
     System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     FaceRecognizer faceRecognizer = LBPHFaceRecognizer.create();
     CascadeClassifier faceCascade = new CascadeClassifier();
-    faceCascade.load("/usr/share/OpenCV/haarcascades/haarcascade_frontalface_alt.xml");
+    faceCascade.load(Properties.location+"haarcascade_frontalface_alt.xml");
     File folder = new File(imageFolder);
     File[] files = folder.listFiles();
     Map<String, Integer> nameMapId = new HashMap<String, Integer>(10);
