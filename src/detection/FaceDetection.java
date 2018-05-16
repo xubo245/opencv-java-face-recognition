@@ -50,7 +50,7 @@ public class FaceDetection {
     }
   }
 
-  private static void detectAndDisplay(Mat frame, CascadeClassifier faceCascade)
+  public static void detectAndDisplay(Mat frame, CascadeClassifier faceCascade)
   {
     MatOfRect faces = new MatOfRect();
     Mat grayFrame = new Mat();
@@ -63,8 +63,7 @@ public class FaceDetection {
     // compute minimum face size (20% of the frame height, in our case)
     int absoluteFaceSize = 0;
     int height = grayFrame.rows();
-    if (Math.round(height * 0.2f) > 0)
-    {
+    if (Math.round(height * 0.2f) > 0) {
       absoluteFaceSize = Math.round(height * 0.2f);
     }
 

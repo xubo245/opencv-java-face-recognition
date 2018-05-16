@@ -10,27 +10,33 @@ import org.opencv.core.Mat;
 public class VideoPanel extends JPanel {
 
   private BufferedImage image;
+  private int width,height, channels;
+  byte[] sourcePixels;
+  byte[] targetPixels;
 
   public void setImageWithMat(Mat mat) {
-    image = matToBufferedImage(mat);
+    matToBufferedImage(mat);
   }
 
-  private BufferedImage matToBufferedImage(Mat original) {
+  private void matToBufferedImage(Mat original) {
     // init
-    BufferedImage image = null;
-    int width = original.width(), height = original.height(), channels = original.channels();
-    byte[] sourcePixels = new byte[width * height * channels];
-    original.get(0, 0, sourcePixels);
-
-    if (original.channels() > 1) {
-      image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+    if (original.width() == width && height == original.height() && channels == original.channels()) {
+      original.get(0, 0, sourcePixels);
+      System.arraycopy(sourcePixels, 0, targetPixels, 0, sourcePixels.length);
     } else {
-      image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+      width = original.width();
+      height = original.height();
+      channels = original.channels();
+      sourcePixels = new byte[width * height * channels];
+      original.get(0, 0, sourcePixels);
+      if (original.channels() > 1) {
+        image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+      } else {
+        image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+      }
+      targetPixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
+      System.arraycopy(sourcePixels, 0, targetPixels, 0, sourcePixels.length);
     }
-    final byte[] targetPixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
-    System.arraycopy(sourcePixels, 0, targetPixels, 0, sourcePixels.length);
-
-    return image;
   }
 
   @Override protected void paintComponent(Graphics g) {
